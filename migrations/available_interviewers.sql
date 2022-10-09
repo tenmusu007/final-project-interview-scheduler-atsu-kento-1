@@ -1,0 +1,1 @@
+CREATE TABLE available_interviewers(id SERIAL PRIMARY KEY,name TEXT,)
