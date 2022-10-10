@@ -1,1 +1,1 @@
-CREATE TABLE interviewers(id SERIAL PRIMARY KEY,name TEXT,);
+CREATE TABLE interviewer(id SERIAL PRIMARY KEY,name TEXT,avatar:TEXT);
