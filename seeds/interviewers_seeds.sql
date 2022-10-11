@@ -3,3 +3,5 @@ INSERT INTO interviewers (id SERIAL PRIMARY KEY,name TEXT,avatar:TEXT) VALUES (2
 INSERT INTO interviewers (id SERIAL PRIMARY KEY,name TEXT,avatar:TEXT) VALUES (3,'Mildred Nazir','https://i.imgur.com/T2WwVfS.png')
 INSERT INTO interviewers (id SERIAL PRIMARY KEY,name TEXT,avatar:TEXT) VALUES (4,'Cohana Roy','https://i.imgur.com/FK8V841.jpg')
 INSERT INTO interviewers (id SERIAL PRIMARY KEY,name TEXT,avatar:TEXT) VALUES (5,'Sven Jones','https://i.imgur.com/twYrpay.jpg')
+
+ALTER SEQUENCE interviewers_id_seq RESTART WITH 5;

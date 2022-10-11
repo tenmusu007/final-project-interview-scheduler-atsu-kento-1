@@ -1,1 +1,1 @@
-INSERT INTO interviews (id:SERIAL PRIMARY KEY,student:TEXT,interviewer_id:INTEGER,appointment_id:INTEGER) VALUES (1,'',0,0)
+INSERT INTO interviews (id:SERIAL PRIMARY KEY,student:TEXT,interviewer_id:INTEGER,appointment_id:INTEGER) VALUES (1,'',0,0);
