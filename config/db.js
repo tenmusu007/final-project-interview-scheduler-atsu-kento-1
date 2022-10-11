@@ -3,12 +3,12 @@ const fs = require("fs");
 
 const queryDb = async () => {
   const pool = new Pool({
-    user: "postgres",
-    host: "",
-    database: "hondataketo",
-    password: "postgres",
-    port: 5432,
-  });
+		user: process.env.USERNAME,
+		host: process.env.HOST,
+		database: process.env.DATABASE,
+		password: process.env.PASSWORD,
+		port: process.env.PORT,
+	});
 };
 
 module.exports = { queryDb };
