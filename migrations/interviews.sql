@@ -1,0 +1,1 @@
+CREATE TABLE interview(id:SERIAL PRIMARY KEY,student:TEXT,interviewer_id:INTEGER,appointment_id:INTEGER)
