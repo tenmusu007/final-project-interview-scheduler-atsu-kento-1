@@ -10,11 +10,11 @@ router.get("/:day", (req, res) => {
 router.post("/", (req, res) => {
   const { student, interviewer_id, appointment_id } = req.body;
   const pool = new Pool({
-    name: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    name: process.env.NAME,
+    host: process.env.HOST,
+    database: process.env.DATABASE,
+    password: process.env.PASSWORD,
+    port: process.env.PORT,
   });
   pool
     .query(
@@ -29,11 +29,11 @@ router.post("/", (req, res) => {
 // update an interview
 router.put("/:id", (req, res) => {
   const pool = new Pool({
-    name: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    name: process.env.NAME,
+    host: process.env.HOST,
+    database: process.env.DATABASE,
+    password: process.env.PASSWORD,
+    port: process.env.PORT,
   });
   pool
     .query()
@@ -44,11 +44,11 @@ router.put("/:id", (req, res) => {
 // delete an interview
 router.delete("/:id", (req, res) => {
   const pool = new Pool({
-    name: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    name: process.env.NAME,
+    host: process.env.HOST,
+    database: process.env.DATABASE,
+    password: process.env.PASSWORD,
+    port: process.env.PORT,
   });
   pool
     .query()
