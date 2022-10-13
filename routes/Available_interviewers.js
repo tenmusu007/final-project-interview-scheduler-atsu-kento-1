@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const {
+  getAllAvailableInterviewersForAGivenDay,
+} = require("../controller/AvailableInterviewersController");
 
-router.get("/:day", (req, res) => {
-  const { day } = req.body;
-  res.json({ msg: "Available" });
-});
+router.get("/:day_id", getAllAvailableInterviewersForAGivenDay);
 
 module.exports = router;
