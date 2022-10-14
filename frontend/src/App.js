@@ -20,8 +20,8 @@ export default function Application() {
     getData();
   }, []);
   const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState(daysData);
-  const [appointments, setAppointments] = useState(appointmentsData);
+  const [days, setDays] = useState({});
+  const [appointments, setAppointments] = useState({});
   async function bookInterview(id, interview) {
     console.log(id, interview);
     const isEdit = appointments[id].interview;

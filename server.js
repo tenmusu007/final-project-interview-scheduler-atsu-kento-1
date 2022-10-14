@@ -5,6 +5,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 const port = 8000;
+const appoitmentRoute = require("./routes/appointment");
 const interviewersRoute = require("./routes/Interviewers");
 const interviewsRoute = require("./routes/Interviews");
 
@@ -15,6 +16,7 @@ io.on("connection", (socket) => {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/", appoitmentRoute);
 app.use("/interviewers", interviewersRoute);
 app.use("/interviews", interviewsRoute);
 
