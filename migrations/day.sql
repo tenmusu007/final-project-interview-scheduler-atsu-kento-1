@@ -1,0 +1,1 @@
+CREATE TABLE day(day_id INTEGER PRIMARY KEY, name TEXT);
