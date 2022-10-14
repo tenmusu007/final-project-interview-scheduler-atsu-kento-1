@@ -7,6 +7,7 @@ const Form = (props) => {
   const [interviewer, setInterviewer] = React.useState(
     props.interviewer || null
   );
+  console.log(interviewer);
   const reset = () => {
     setName("");
     setInterviewer(null);
