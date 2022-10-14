@@ -1,3 +1,5 @@
+const { Pool } = require("pg");
+
 const getAllInterviewers = (req, res) => {
   const pool = new Pool({
     name: process.env.NAME,

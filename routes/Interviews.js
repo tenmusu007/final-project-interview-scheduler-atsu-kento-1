@@ -8,7 +8,7 @@ const {
 } = require("../controller/InterviewsController");
 
 router.get("/:day_id", getAllInterviewsForAGivenDay);
-router.post("/", createNewInterview);
+router.post("/new", createNewInterview);
 router.put("/:interview_id", updateInterview);
 router.delete("/:interview_id", deleteInterview);
 

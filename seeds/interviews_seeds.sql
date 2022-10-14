@@ -1,1 +1,5 @@
-INSERT INTO interviews (id:SERIAL PRIMARY KEY,student:TEXT,interviewer_id:INTEGER,appointment_id:INTEGER) VALUES (1,'',0,0);
+INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (1,'Kento',2,1);
+INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (2,'Atsu',4,7);
+INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (3,'Umut',1,13);
+INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (4,'Koki',5,19);
+INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (5,'Tomo',3,25);
