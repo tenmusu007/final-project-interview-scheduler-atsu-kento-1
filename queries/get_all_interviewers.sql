@@ -1,1 +1,1 @@
-SELECT * FROM interviewers
+SELECT * FROM day;
