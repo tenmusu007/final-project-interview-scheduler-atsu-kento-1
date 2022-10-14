@@ -1,1 +1,2 @@
-SELECT * FROM day;
+SELECT * FROM interviews;
+-- DROP TABLE interviews;
