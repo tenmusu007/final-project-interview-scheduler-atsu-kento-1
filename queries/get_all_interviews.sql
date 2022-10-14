@@ -1,0 +1,2 @@
+-- SELECT * FROM interviews;
+SELECT * FROM available_interviewers JOIN interviewers ON available_interviewers.interviewer_id = interviewers.id JOIN interviews ON interviewers.id = interviews.interviewer_id

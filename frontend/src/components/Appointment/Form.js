@@ -12,7 +12,7 @@ const Form = (props) => {
     setName("");
     setInterviewer(null);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!name || !interviewer) return;
     props.onSave(name, interviewer);

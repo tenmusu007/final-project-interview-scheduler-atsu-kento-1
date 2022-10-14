@@ -1,3 +1,5 @@
+const { Pool } = require("pg");
+
 const getAllInterviewsForAGivenDay = (req, res) => {
   const { day_id } = req.body;
   const pool = new Pool({
@@ -18,6 +20,7 @@ const getAllInterviewsForAGivenDay = (req, res) => {
 };
 
 const createNewInterview = (req, res) => {
+  console.log(req.body);
   const { student, interviewer_id, appointment_id } = req.body;
   const pool = new Pool({
     name: process.env.NAME,
@@ -28,10 +31,10 @@ const createNewInterview = (req, res) => {
   });
   pool
     .query(
-      "INSERT INTO interviews (student,interviewer_id, appointment_id) VALUES ($1 $2 $3) RETURNING *",
+      "INSERT INTO interviews (student,interviewer_id,appointment_id) VALUES ($1,$2,$3) RETURNING *",
       [student, interviewer_id, appointment_id]
     )
-    .then((result) => result.row[0])
+    .then((result) => result)
     .then((interview) => res.json(interview))
     .catch((err) => console.log(err))
     .finally(() => pool.end());
