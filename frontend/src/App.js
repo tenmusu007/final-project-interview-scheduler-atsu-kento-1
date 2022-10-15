@@ -14,7 +14,7 @@ export default function Application() {
     };
     const getData = async () => {
       axios.get("/day").then((res) => setDays(res.data));
-      // axios.get("/day").then((res) => console.log(res));
+      // axios.get("/day").then((res) => console.log(res.data));
     };
     getApo();
     getData();
