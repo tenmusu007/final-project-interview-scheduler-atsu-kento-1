@@ -4,6 +4,6 @@ const router = require("express").Router();
 const { Pool } = require("pg");
 require("dotenv").config();
 // console.log("apo", pool);
-const {getAppointment}= require("../controller/appointment")
-router.get("/appointment", getAppointment);
+const { getDay } = require("../controller/day");
+router.get("/day", getDay);
 module.exports = router;

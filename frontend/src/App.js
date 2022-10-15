@@ -9,11 +9,24 @@ import io from "socket.io-client";
 // const socket = io.connect("http://localhost:3001");
 
 export default function Application() {
+  // useEffect(() => {
+  //   // const getApo = async () => {
+  //   //   axios.get("/appointment").then((res) => setAppointments(res.data));
+  //   //   // axios.get("/appointment").then((res) => console.log("appo",res));
+  //   // };
+  //   const getData = async () => {
+  //     axios.get("/day").then((res) => setDays(res.data));
+  //     // axios.get("/day").then((res) => console.log(res.data));
+  //   };
+  //   // getApo();
+  //   getData();
+  // }, []);
   const [day, setDay] = useState("Monday");
   const [days, setDays] = useState({});
   const [appointments, setAppointments] = useState({});
   const getDataFromDB = async () => {
     const res = await fetch(`/interviews/test/${day}`);
+    console.log("res",res);
     const data = await res.json();
     const response = await fetch(`/interviews/${day}`);
     const interviews = await response.json();
