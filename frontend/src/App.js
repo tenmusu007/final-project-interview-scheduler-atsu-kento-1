@@ -7,15 +7,15 @@ import axios from "axios";
 
 export default function Application() {
   useEffect(() => {
-    const getApo = async () => {
-      axios.get("/appointment").then((res) => setAppointments(res.data));
-      // axios.get("/appointment").then((res) => console.log("appo",res));
-    };
+    // const getApo = async () => {
+    //   axios.get("/appointment").then((res) => setAppointments(res.data));
+    //   // axios.get("/appointment").then((res) => console.log("appo",res));
+    // };
     const getData = async () => {
       axios.get("/day").then((res) => setDays(res.data));
       // axios.get("/day").then((res) => console.log(res.data));
     };
-    getApo();
+    // getApo();
     getData();
   }, []);
   const [day, setDay] = useState("Monday");
