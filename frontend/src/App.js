@@ -4,6 +4,9 @@ import "./App.scss";
 import DayList from "./components/DayList";
 import Appointment from "./components/Appointment";
 import axios from "axios";
+import io from "socket.io-client";
+
+// const socket = io.connect("http://localhost:3001");
 
 export default function Application() {
   const [day, setDay] = useState("Monday");
@@ -54,6 +57,9 @@ export default function Application() {
   const getData = async () => {
     axios.get("/day").then((res) => setDays(res.data));
   };
+  // const sendInterview = () => {
+  //   socket.emit("send_interview", {});
+  // };
   useEffect(() => {
     getDataFromDB();
     getData();
