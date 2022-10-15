@@ -26,6 +26,7 @@ export default function Application() {
   const [appointments, setAppointments] = useState({});
   const getDataFromDB = async () => {
     const res = await fetch(`/interviews/test/${day}`);
+    console.log("res",res);
     const data = await res.json();
     const response = await fetch(`/interviews/${day}`);
     const interviews = await response.json();
