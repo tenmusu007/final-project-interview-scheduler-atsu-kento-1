@@ -3,3 +3,4 @@ INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (2,'Ats
 INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (3,'Umut',1,13);
 INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (4,'Koki',5,19);
 INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (5,'Tomo',3,25);
+INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (6,'Niko',1,4);
