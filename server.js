@@ -10,10 +10,10 @@ const dayRoute =require("./routes/day")
 const interviewersRoute = require("./routes/Interviewers");
 const interviewsRoute = require("./routes/Interviews");
 
-io.on("connection", (socket) => {
-  const { username, room } = socket.handshake.query;
-  socket.join(username);
-});
+// io.on("connection", (socket) => {
+//   const { username, room } = socket.handshake.query;
+//   socket.join(username);
+// });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

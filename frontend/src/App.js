@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import "./App.scss";
 import DayList from "./components/DayList";
 import Appointment from "./components/Appointment";
-// import daysData from "./components/__mocks__/days.json";
-// import appointmentsData from "./components/__mocks__/appointments.json";
 import axios from "axios";
+
 export default function Application() {
   useEffect(() => {
     const getApo = async () => {
@@ -22,6 +21,46 @@ export default function Application() {
   const [day, setDay] = useState("Monday");
   const [days, setDays] = useState({});
   const [appointments, setAppointments] = useState({});
+  const getDataFromDB = async () => {
+    const res = await fetch(`/interviews/test/${day}`);
+    const data = await res.json();
+    const response = await fetch(`/interviews/${day}`);
+    const interviews = await response.json();
+    const obj = {};
+    for (let i = 0; i < interviews.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+        if (data[j].appointment_id === interviews[i].appointment_id) {
+          obj[data[j].appointment_id] = {
+            id: data[j].appointment_id,
+            time: data[j].time,
+            interview: {
+              student: interviews[i].student,
+              interviewer: {
+                id: interviews[i].interviewer_id,
+                name: interviews[i].interviewer_name,
+                avatar: interviews[i].avatar,
+              },
+            },
+          };
+        } else {
+          if (obj[data[j].appointment_id] === undefined) {
+            obj[data[j].appointment_id] = {
+              id: data[j].appointment_id,
+              time: data[j].time,
+            };
+          }
+        }
+      }
+    }
+    setAppointments(obj);
+  };
+  const getData = async () => {
+    axios.get("/day").then((res) => setDays(res.data));
+  };
+  useEffect(() => {
+    getDataFromDB();
+    getData();
+  }, [day]);
   async function bookInterview(id, interview) {
     console.log(id, interview);
     const isEdit = appointments[id].interview;
@@ -85,7 +124,6 @@ export default function Application() {
     const res = await fetch(`/interviews/${id}`, {
       method: "DELETE",
     });
-    console.log(res);
     setDays((prev) => {
       const updatedDay = {
         ...prev[day],
