@@ -1,7 +1,8 @@
 const { Pool } = require("pg");
 
-const getAllInterviewsForAGivenDay = (req, res) => {
-  const { day_id } = req.body;
+const getTest = (req, res) => {
+  const { day } = req.params;
+  console.log(day);
   const pool = new Pool({
     name: process.env.NAME,
     host: process.env.HOST,
@@ -11,9 +12,28 @@ const getAllInterviewsForAGivenDay = (req, res) => {
   });
   pool
     .query(
-      `SELECT * FROM interviews JOIN appointments ON interviews.appointment_id = appointments.id WHERE appointments.day_id = ${day_id}`
+      `SELECT appointment.id as appointment_id,appointment.time as time FROM appointment JOIN day ON appointment.day_id = day.day_id WHERE day.name = '${day}'`
     )
-    .then((res) => res.row)
+    .then((res) => res.rows)
+    .then((appointments) => res.json(appointments))
+    .catch((err) => console.log(err))
+    .finally(() => pool.end());
+};
+
+const getAllInterviewsForAGivenDay = (req, res) => {
+  const { day } = req.params;
+  const pool = new Pool({
+    name: process.env.NAME,
+    host: process.env.HOST,
+    database: process.env.DATABASE,
+    password: process.env.PASSWORD,
+    port: process.env.PORT,
+  });
+  pool
+    .query(
+      `SELECT interviews.appointment_id as appointment_id, interviews.student,interviewers.id as interviewer_id,interviewers.name as interviewer_name,interviewers.avatar FROM interviews JOIN appointment ON interviews.appointment_id = appointment.id JOIN day ON appointment.day_id = day.day_id JOIN interviewers ON interviews.interviewer_id = interviewers.id WHERE day.name = '${day}'`
+    )
+    .then((res) => res.rows)
     .then((interviews) => res.json(interviews))
     .catch((err) => console.log(err))
     .finally(() => pool.end());
@@ -75,6 +95,7 @@ const deleteInterview = (req, res) => {
 };
 
 module.exports = {
+  getTest,
   getAllInterviewsForAGivenDay,
   createNewInterview,
   updateInterview,
