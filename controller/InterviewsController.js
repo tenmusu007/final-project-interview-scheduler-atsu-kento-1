@@ -51,7 +51,7 @@ const createNewInterview = (req, res) => {
   });
   pool
     .query(
-      "INSERT INTO interviews (student,interviewer_id,appointment_id) VALUES ($1,$2,$3) RETURNING *",
+      `INSERT INTO interviews (student,interviewer_id,appointment_id) VALUES ($1,$2,$3) RETURNING *`,
       [student, interviewer_id, appointment_id]
     )
     .then((result) => result)
@@ -71,7 +71,7 @@ const updateInterview = (req, res) => {
   });
   pool
     .query(
-      `UPDATE interviews SET student = ${student}, interviewer_id = ${interviewer_id}, appointment_id = ${appointment_id}`
+      `UPDATE interviews SET student = '${student}', interviewer_id = ${interviewer_id}, appointment_id = ${appointment_id} WHERE interviews.appointment_id = ${appointment_id}`
     )
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
@@ -79,7 +79,8 @@ const updateInterview = (req, res) => {
 };
 
 const deleteInterview = (req, res) => {
-  const { interview_id } = req.body;
+  const { appointment_id } = req.params;
+  console.log(appointment_id);
   const pool = new Pool({
     name: process.env.NAME,
     host: process.env.HOST,
@@ -88,7 +89,9 @@ const deleteInterview = (req, res) => {
     port: process.env.PORT,
   });
   pool
-    .query(`DELETE * FROM interviews WHERE interviews.id = ${interview_id}`)
+    .query(
+      `DELETE FROM interviews WHERE interviews.appointment_id = ${appointment_id}`
+    )
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
     .finally(() => pool.end());

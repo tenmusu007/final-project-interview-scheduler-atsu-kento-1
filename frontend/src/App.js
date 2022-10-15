@@ -15,27 +15,36 @@ export default function Application() {
     const response = await fetch(`/interviews/${day}`);
     const interviews = await response.json();
     const obj = {};
-    for (let i = 0; i < interviews.length; i++) {
-      for (let j = 0; j < data.length; j++) {
-        if (data[j].appointment_id === interviews[i].appointment_id) {
-          obj[data[j].appointment_id] = {
-            id: data[j].appointment_id,
-            time: data[j].time,
-            interview: {
-              student: interviews[i].student,
-              interviewer: {
-                id: interviews[i].interviewer_id,
-                name: interviews[i].interviewer_name,
-                avatar: interviews[i].avatar,
-              },
-            },
-          };
-        } else {
-          if (obj[data[j].appointment_id] === undefined) {
+    if (interviews.length === 0) {
+      for (let i = 0; i < data.length; i++) {
+        obj[data[i].appointment_id] = {
+          id: data[i].appointment_id,
+          time: data[i].time,
+        };
+      }
+    } else {
+      for (let i = 0; i < interviews.length; i++) {
+        for (let j = 0; j < data.length; j++) {
+          if (data[j].appointment_id === interviews[i].appointment_id) {
             obj[data[j].appointment_id] = {
               id: data[j].appointment_id,
               time: data[j].time,
+              interview: {
+                student: interviews[i].student,
+                interviewer: {
+                  id: interviews[i].interviewer_id,
+                  name: interviews[i].interviewer_name,
+                  avatar: interviews[i].avatar,
+                },
+              },
             };
+          } else {
+            if (obj[data[j].appointment_id] === undefined) {
+              obj[data[j].appointment_id] = {
+                id: data[j].appointment_id,
+                time: data[j].time,
+              };
+            }
           }
         }
       }
@@ -74,6 +83,7 @@ export default function Application() {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(interviewObj),
       });
     }
     if (!isEdit) {
@@ -109,7 +119,7 @@ export default function Application() {
       };
       return appointments;
     });
-    const res = await fetch(`/interviews/${id}`, {
+    await fetch(`/interviews/${id}`, {
       method: "DELETE",
     });
     setDays((prev) => {
