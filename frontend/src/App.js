@@ -1,17 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.scss";
-
 import DayList from "./components/DayList";
 import Appointment from "./components/Appointment";
-import daysData from "./components/__mocks__/days.json";
-import appointmentsData from "./components/__mocks__/appointments.json";
+import axios from "axios";
 
 export default function Application() {
+  // useEffect(() => {
+  //   // const getApo = async () => {
+  //   //   axios.get("/appointment").then((res) => setAppointments(res.data));
+  //   //   // axios.get("/appointment").then((res) => console.log("appo",res));
+  //   // };
+  //   const getData = async () => {
+  //     axios.get("/day").then((res) => setDays(res.data));
+  //     // axios.get("/day").then((res) => console.log(res.data));
+  //   };
+  //   // getApo();
+  //   getData();
+  // }, []);
   const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState(daysData);
-  const [appointments, setAppointments] = useState(appointmentsData);
-  function bookInterview(id, interview) {
+  const [days, setDays] = useState({});
+  const [appointments, setAppointments] = useState({});
+  const getDataFromDB = async () => {
+    const res = await fetch(`/interviews/test/${day}`);
+    const data = await res.json();
+    const response = await fetch(`/interviews/${day}`);
+    const interviews = await response.json();
+    const obj = {};
+    for (let i = 0; i < interviews.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+        if (data[j].appointment_id === interviews[i].appointment_id) {
+          obj[data[j].appointment_id] = {
+            id: data[j].appointment_id,
+            time: data[j].time,
+            interview: {
+              student: interviews[i].student,
+              interviewer: {
+                id: interviews[i].interviewer_id,
+                name: interviews[i].interviewer_name,
+                avatar: interviews[i].avatar,
+              },
+            },
+          };
+        } else {
+          if (obj[data[j].appointment_id] === undefined) {
+            obj[data[j].appointment_id] = {
+              id: data[j].appointment_id,
+              time: data[j].time,
+            };
+          }
+        }
+      }
+    }
+    setAppointments(obj);
+  };
+  const getData = async () => {
+    axios.get("/day").then((res) => setDays(res.data));
+  };
+  useEffect(() => {
+    getDataFromDB();
+    getData();
+  }, [day]);
+  async function bookInterview(id, interview) {
     console.log(id, interview);
     const isEdit = appointments[id].interview;
     setAppointments((prev) => {
@@ -25,7 +75,27 @@ export default function Application() {
       };
       return appointments;
     });
+    const interviewObj = {
+      student: interview.student,
+      interviewer_id: interview.interviewer.id,
+      appointment_id: id,
+    };
+    if (isEdit) {
+      await fetch(`/interviews/${interview.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
     if (!isEdit) {
+      await fetch(`/interviews/new`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(interviewObj),
+      });
       setDays((prev) => {
         const updatedDay = {
           ...prev[day],
@@ -39,7 +109,7 @@ export default function Application() {
       });
     }
   }
-  function cancelInterview(id) {
+  async function cancelInterview(id) {
     setAppointments((prev) => {
       const updatedAppointment = {
         ...prev[id],
@@ -50,6 +120,9 @@ export default function Application() {
         [id]: updatedAppointment,
       };
       return appointments;
+    });
+    const res = await fetch(`/interviews/${id}`, {
+      method: "DELETE",
     });
     setDays((prev) => {
       const updatedDay = {

@@ -1,0 +1,1 @@
+CREATE TABLE interviewers(id SERIAL PRIMARY KEY,name TEXT,avatar TEXT);
