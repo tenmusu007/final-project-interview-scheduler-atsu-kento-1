@@ -4,3 +4,5 @@ INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (3,'Umu
 INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (4,'Koki',5,19);
 INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (5,'Tomo',3,25);
 INSERT INTO interviews (id,student,interviewer_id,appointment_id) VALUES (6,'Niko',1,4);
+
+ALTER SEQUENCE interviews_id_seq RESTART WITH 6;
