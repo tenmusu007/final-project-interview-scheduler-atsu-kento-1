@@ -2,7 +2,7 @@ const { Pool } = require("pg");
 
 const getAllInterviewers = (req, res) => {
   const pool = new Pool({
-    name: process.env.NAME,
+    user: process.env.NAME,
     host: process.env.HOST,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,

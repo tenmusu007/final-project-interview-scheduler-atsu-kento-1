@@ -3,8 +3,9 @@ const { Pool } = require("pg");
 const getTest = (req, res) => {
   const { day } = req.params;
   console.log(day);
+  // console.log(process.env.NAME);
   const pool = new Pool({
-    name: process.env.NAME,
+    user: process.env.NAME,
     host: process.env.HOST,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
@@ -23,7 +24,7 @@ const getTest = (req, res) => {
 const getAllInterviewsForAGivenDay = (req, res) => {
   const { day } = req.params;
   const pool = new Pool({
-    name: process.env.NAME,
+    user: process.env.NAME,
     host: process.env.HOST,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
@@ -43,7 +44,7 @@ const createNewInterview = (req, res) => {
   console.log(req.body);
   const { student, interviewer_id, appointment_id } = req.body;
   const pool = new Pool({
-    name: process.env.NAME,
+    user: process.env.NAME,
     host: process.env.HOST,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
@@ -63,7 +64,7 @@ const createNewInterview = (req, res) => {
 const updateInterview = (req, res) => {
   const { student, interviewer_id, appointment_id } = req.body;
   const pool = new Pool({
-    name: process.env.NAME,
+    user: process.env.NAME,
     host: process.env.HOST,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,

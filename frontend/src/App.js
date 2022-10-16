@@ -26,7 +26,7 @@ export default function Application() {
   const [appointments, setAppointments] = useState({});
   const getDataFromDB = async () => {
     const res = await fetch(`/interviews/test/${day}`);
-    console.log("res",res);
+    console.log("res", res);
     const data = await res.json();
     const response = await fetch(`/interviews/${day}`);
     const interviews = await response.json();
@@ -69,14 +69,15 @@ export default function Application() {
   };
   const getData = async () => {
     axios.get("/day").then((res) => setDays(res.data));
+    // axios.get(`/interviews/test/Monday`).then((res)=>{console.log(res);})
   };
   // const sendInterview = () => {
-  //   socket.emit("send_interview", {});
+    //   socket.emit("send_interview", {});
   // };
   useEffect(() => {
     getDataFromDB();
     getData();
-  }, [day]);
+  }, []);
   async function bookInterview(id, interview) {
     console.log(id, interview);
     const isEdit = appointments[id].interview;

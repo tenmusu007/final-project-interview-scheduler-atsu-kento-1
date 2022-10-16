@@ -1,16 +1,16 @@
 const express = require("express");
-const http = require("http");
+// const http = require("http");
 const app = express();
-const server = http.createServer(app);
-const cors = require("cors");
-const { Server } = require("socket.io");
+// const server = http.createServer(app);
+// const cors = require("cors");
+// const { Server } = require("socket.io");
 const port = 8000;
-const appoitmentRoute = require("./routes/appointment");
+// const appoitmentRoute = require("./routes/appointment");
 const dayRoute =require("./routes/day")
 const interviewersRoute = require("./routes/Interviewers");
 const interviewsRoute = require("./routes/Interviews");
 require("dotenv").config();
-app.use(cors());
+// app.use(cors());
 // const io = new Server(server, {
 //   cors: {
 //     origin: "http://localhost:3000",
@@ -28,7 +28,7 @@ app.use(cors());
 // });
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", appoitmentRoute);
+// app.use("/", appoitmentRoute);
 app.use("/", dayRoute);
 app.use("/interviewers", interviewersRoute);
 app.use("/interviews", interviewsRoute);
