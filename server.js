@@ -18,19 +18,20 @@ const io = new Server(server, {
   },
 });
 io.on("connection", (socket) => {
-  console.log("Connected");
   socket.on("send_appointments", (data) => {
+    console.log("Connected");
     socket.broadcast.emit("received_appointments", data);
   });
   socket.on("change_appointments", (data) => {
+    console.log("Connected");
     socket.broadcast.emit("received_appointments", data);
   });
 });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", appoitmentRoute);
-app.use("/", dayRoute);
+// app.use("/", appoitmentRoute);
+app.use("/day", dayRoute);
 app.use("/interviewers", interviewersRoute);
 app.use("/interviews", interviewsRoute);
 

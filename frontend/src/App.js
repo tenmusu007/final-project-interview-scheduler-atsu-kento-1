@@ -55,16 +55,18 @@ export default function Application() {
     setAppointments(obj);
   };
   const getData = async () => {
-    axios.get("/day").then((res) => setDays(res.data));
+    await axios.get("/day").then((res) => setDays(res.data));
+    await axios.get("/day").then((res) => console.log(res.data));
+
   };
   useEffect(() => {
     getDataFromDB();
     getData();
-    socket.on("received_appointments", (data) => {
-      getDataFromDB();
-      getData();
-    });
   }, [day]);
+  socket.on("received_appointments", (data) => {
+    getDataFromDB();
+    getData();
+  });
   async function bookInterview(id, interview) {
     console.log(id, interview);
     const isEdit = appointments[id].interview;
@@ -138,6 +140,7 @@ export default function Application() {
       };
       return days;
     });
+    socket.emit("change_appointments", { appointments });
     await fetch(`/interviews/${id}`, {
       method: "DELETE",
       headers: {

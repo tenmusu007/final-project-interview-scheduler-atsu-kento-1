@@ -1,14 +1,15 @@
 const { Pool } = require("pg");
-require("dotenv").config();
+// require("dotenv").config();
 
 const getDay = (req, res) => {
+	// console.log("here");
   const pool = new Pool({
-    name: process.env.NAME,
-    host: process.env.HOST,
-    database: process.env.DATABASE,
-    password: process.env.PASSWORD,
-    port: process.env.PORT,
-  });
+		user: process.env.NAME,
+		host: process.env.HOST,
+		database: process.env.DATABASE,
+		password: process.env.PASSWORD,
+		port: process.env.PORT,
+	});
   const query =
     "SELECT day.day_id as id,day.name, count(appointment.*) as appointments, count(interviews.*) as interviews FROM appointment LEFT JOIN day ON day.day_id = appointment.day_id LEFT JOIN interviews ON interviews.appointment_id = appointment.id GROUP BY day.day_id ORDER BY day.day_id;";
   pool

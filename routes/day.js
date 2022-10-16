@@ -5,5 +5,5 @@ const { Pool } = require("pg");
 require("dotenv").config();
 // console.log("apo", pool);
 const { getDay } = require("../controller/day");
-router.get("/day", getDay);
+router.get("/", getDay);
 module.exports = router;
