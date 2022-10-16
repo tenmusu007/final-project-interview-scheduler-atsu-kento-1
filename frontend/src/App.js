@@ -6,27 +6,14 @@ import Appointment from "./components/Appointment";
 import axios from "axios";
 import io from "socket.io-client";
 
-// const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://localhost:3001");
 
 export default function Application() {
-  // useEffect(() => {
-  //   // const getApo = async () => {
-  //   //   axios.get("/appointment").then((res) => setAppointments(res.data));
-  //   //   // axios.get("/appointment").then((res) => console.log("appo",res));
-  //   // };
-  //   const getData = async () => {
-  //     axios.get("/day").then((res) => setDays(res.data));
-  //     // axios.get("/day").then((res) => console.log(res.data));
-  //   };
-  //   // getApo();
-  //   getData();
-  // }, []);
   const [day, setDay] = useState("Monday");
   const [days, setDays] = useState({});
   const [appointments, setAppointments] = useState({});
   const getDataFromDB = async () => {
     const res = await fetch(`/interviews/test/${day}`);
-    console.log("res",res);
     const data = await res.json();
     const response = await fetch(`/interviews/${day}`);
     const interviews = await response.json();
@@ -70,12 +57,13 @@ export default function Application() {
   const getData = async () => {
     axios.get("/day").then((res) => setDays(res.data));
   };
-  // const sendInterview = () => {
-  //   socket.emit("send_interview", {});
-  // };
   useEffect(() => {
     getDataFromDB();
     getData();
+    socket.on("received_appointments", (data) => {
+      getDataFromDB();
+      getData();
+    });
   }, [day]);
   async function bookInterview(id, interview) {
     console.log(id, interview);
@@ -125,6 +113,7 @@ export default function Application() {
         return days;
       });
     }
+    socket.emit("change_appointments", { appointments });
   }
   async function cancelInterview(id) {
     setAppointments((prev) => {
@@ -138,9 +127,6 @@ export default function Application() {
       };
       return appointments;
     });
-    await fetch(`/interviews/${id}`, {
-      method: "DELETE",
-    });
     setDays((prev) => {
       const updatedDay = {
         ...prev[day],
@@ -151,6 +137,12 @@ export default function Application() {
         [day]: updatedDay,
       };
       return days;
+    });
+    await fetch(`/interviews/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
   }
   return (
