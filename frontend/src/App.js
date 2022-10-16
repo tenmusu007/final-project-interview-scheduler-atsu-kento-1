@@ -26,7 +26,7 @@ export default function Application() {
   const [appointments, setAppointments] = useState({});
   const getDataFromDB = async () => {
     const res = await fetch(`/interviews/test/${day}`);
-    console.log("res",res);
+    console.log("res", res);
     const data = await res.json();
     const response = await fetch(`/interviews/${day}`);
     const interviews = await response.json();
@@ -127,6 +127,7 @@ export default function Application() {
     }
   }
   async function cancelInterview(id) {
+    console.log("ugoiterukai");
     setAppointments((prev) => {
       const updatedAppointment = {
         ...prev[id],
@@ -138,9 +139,9 @@ export default function Application() {
       };
       return appointments;
     });
-    await fetch(`/interviews/${id}`, {
-      method: "DELETE",
-    });
+    // await fetch(`/interviews/${id}`, {
+    //   method: "DELETE",
+    // });
     setDays((prev) => {
       const updatedDay = {
         ...prev[day],
@@ -151,6 +152,9 @@ export default function Application() {
         [day]: updatedDay,
       };
       return days;
+    });
+    await fetch(`/interviews/${id}`, {
+      method: "DELETE",
     });
   }
   return (
