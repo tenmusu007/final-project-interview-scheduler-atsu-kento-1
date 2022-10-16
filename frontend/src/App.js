@@ -57,12 +57,6 @@ export default function Application() {
   const getData = async () => {
     axios.get("/day").then((res) => setDays(res.data));
   };
-  const handleInitialize = () => {
-    socket.emit("send_appointments", { appointments });
-  };
-  const handleSocket = () => {
-    socket.emit("change_appointments", { appointments });
-  };
   useEffect(() => {
     getDataFromDB();
     getData();
