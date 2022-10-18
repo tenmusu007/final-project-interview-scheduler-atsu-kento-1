@@ -1,4 +1,3 @@
-
 INSERT INTO appointment(id, time, day_id) VALUES(1,'12pm', 1);
 INSERT INTO appointment(id, time, day_id) VALUES(2,'1pm', 1);
 INSERT INTO appointment(id, time, day_id) VALUES(3,'2pm', 1);
